@@ -1,9 +1,9 @@
-import RegistrationForm from './components/Registration/Registration'
+import AuthPage from "./pages/AuthPage"
 
 function App() {
   return (
     <>
-      <RegistrationForm/>
+      <AuthPage/>
     </>
   )
 }

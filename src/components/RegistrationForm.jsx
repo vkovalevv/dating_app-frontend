@@ -14,7 +14,7 @@ function RegistrationForm() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/users/', {
+      const response = await axios.post('/users', {
         email,
         password,
         first_name: firstName,
