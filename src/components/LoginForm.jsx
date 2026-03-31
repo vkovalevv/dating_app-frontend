@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import api from '../api/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm({ onSuccess }) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); //  for showing erros for users 
@@ -13,11 +15,11 @@ function LoginForm({ onSuccess }) {
     try {
       const formData = new URLSearchParams()
 
-      formData.append('username',email)
-      formData.append('password',password)
+      formData.append('username', email)
+      formData.append('password', password)
 
       const response = await api.post('/users/token', formData);
-      
+
       localStorage.setItem('access_token', response.data.access_token)
       localStorage.setItem('refresh_token', response.data.refresh_token)
 
@@ -35,7 +37,6 @@ function LoginForm({ onSuccess }) {
       {error && (
         <p className="text-red-500 text-sm text-center">{error}</p>
       )}
-
       <div className="flex flex-col gap-1">
         <label htmlFor="email">Email:</label>
         <input className="border rounded px-3 py-2 w-full" type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required />

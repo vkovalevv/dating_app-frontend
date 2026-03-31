@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'antd';
-import axios from 'axios';
+import api from '../api/axiosInstance';
 
 function RegistrationForm() {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ function RegistrationForm() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('/users', {
+      const response = await api.post('/users', {
         email,
         password,
         first_name: firstName,

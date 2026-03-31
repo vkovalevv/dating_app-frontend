@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import RegistrationForm from '../components/RegistrationForm';
 
-function AuthPage() {
+function AuthPage({onLogin}) {
   // status choose which form we will be showing  
   const [isLogin, setIsLogin] = useState(true);
 
@@ -15,7 +15,7 @@ function AuthPage() {
     <div className="flex flex-col w-screen h-screen items-center justify-center gap-4">
 
       {isLogin
-        ? <LoginForm onSuccess={handleLoginSuccess} />
+        ? <LoginForm onSuccess={onLogin} />
         : <RegistrationForm />
       }
 
