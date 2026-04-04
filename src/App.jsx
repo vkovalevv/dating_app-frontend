@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom"
 import { useState } from "react"
 import ProtectedRoute from "./components/ProtectedRoute"
 import PreferencesPage from "./pages/PreferencesPage"
-import SwipesPage from "./pages/SwipesPage"
+import SwipesPage from "./pages/SwipePage"
 
 function App() {
   return (
@@ -14,9 +14,7 @@ function App() {
             element={<AuthPage />} />
 
           <Route path='/preferences' element={
-            <ProtectedRoute>
               <PreferencesPage />
-            </ProtectedRoute>
           } />
 
           <Route path='/swipes' element={
@@ -25,7 +23,7 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path='/' element={<Navigate to='/swipes' />} />
+          <Route path='/' element={<Navigate to='/auth' />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -8,8 +8,12 @@ function ProtectedRoute({ children, requirePreferences = false }) {
 
     useEffect(() => {
         api.get("/users/me/preferences")
-            .then(() => setHasPreferences(true))
-            .catch((err) => { setHasPreferences(false) })
+            .then(() => {setHasPreferences(true)
+                console.log('preferences OK')
+            })
+            .catch((err) => { 
+                console.log('preferences ERROR', err.response?.status)
+                setHasPreferences(false) })
     }, [])
 
     if (!isAuth) return <Navigate to='/auth' />

@@ -15,8 +15,8 @@ function AuthPage({onLogin}) {
     <div className="flex flex-col w-screen h-screen items-center justify-center gap-4">
 
       {isLogin
-        ? <LoginForm onSuccess={onLogin} />
-        : <RegistrationForm />
+        ? <LoginForm onSuccess={handleLoginSuccess} />
+        : <RegistrationForm onSuccess={()=>{setIsLogin(true)}}/>
       }
 
       {/* Переключатель */}

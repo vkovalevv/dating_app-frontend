@@ -24,6 +24,12 @@ function LoginForm({ onSuccess }) {
       localStorage.setItem('refresh_token', response.data.refresh_token)
 
       onSuccess();
+
+      navigator.geolocation.getCurrentPosition((position)=>{
+        api.put('/users/update-location',{latitude:position.coords.latitude, longitude:position.coords.longitude})
+      })
+
+      navigate('/preferences')
     } catch (err) {
       console.error(err)
       setError('Wrong email or password');

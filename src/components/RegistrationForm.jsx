@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'antd';
 import api from '../api/axiosInstance';
 
-function RegistrationForm() {
+function RegistrationForm({onSuccess}) {
   const [email, setEmail] = useState('');
   const [firstName, setFirstname] = useState('');
   const [secondName, setSecondname] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState(18);
   const [gender, setGender] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +25,7 @@ function RegistrationForm() {
         age,
       });
       console.log(response.data);
+      onSuccess()
     } catch (error) {
       console.error(error);
     }

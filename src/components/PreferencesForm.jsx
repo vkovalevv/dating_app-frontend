@@ -27,7 +27,9 @@ export default function PreferencesForm() {
                 await api.put('/preferences/update-preference', { age, gender, max_distance: maxDistance })
             } else {
                 await api.post('/preferences/create-preference', { age, gender, max_distance: maxDistance })
+                setHasPreferences(true)
             }
+            console.log('navigating to swipes')
             navigate('/swipes')
         } catch (error) {
             console.error(error)
