@@ -4,15 +4,30 @@ import UserCard from '../components/UserCard';
 
 export default function SwipePage(){
     const [user, setUser] = useState(null);
+    const [timer, setTimer] = useState(null);
 
     const getUser = () => { 
         api.get('/stack/next')
         .then((res)=>{setUser(res.data)})
-        .catch((err)=>{console.error(err)
+        .catch((err)=>{
+          setUser(null)
+          console.error(err)
         })
     };
 
-    useEffect(getUser,[])
+    useEffect(()=>{
+      let interval = setInterval(getUser,3000)
+      setTimer(interval)
+      return () => clearInterval(interval)
+    },[])
+
+    useEffect(
+      ()=>{
+        if(user){
+          clearInterval(timer)
+        }
+      }, [user]
+    )
 
     const handleSwipe = (swipe) => {
         api.post('/stack/swipe', {target_user:user.id,action:swipe})
