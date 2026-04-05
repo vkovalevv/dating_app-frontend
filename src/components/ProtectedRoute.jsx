@@ -4,16 +4,19 @@ import api from "../api/axiosInstance";
 
 function ProtectedRoute({ children, requirePreferences = false }) {
     const isAuth = !!localStorage.getItem('access_token')
-    const [hasPreferences, setHasPreferences] = useState(null)
+    const [hasPreferences, setHasPreferences] = useState(!requirePreferences)
+
 
     useEffect(() => {
-        api.get("/users/me/preferences")
+        if(requirePreferences){
+            api.get("/users/me/preferences")
             .then(() => {setHasPreferences(true)
-                console.log('preferences OK')
+              console.log('preferences OK')
             })
             .catch((err) => { 
-                console.log('preferences ERROR', err.response?.status)
-                setHasPreferences(false) })
+              console.log('preferences ERROR', err.response?.status)
+              setHasPreferences(false)})
+        }
     }, [])
 
     if (!isAuth) return <Navigate to='/auth' />
