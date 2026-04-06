@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import PreferencesPage from "./pages/PreferencesPage"
 import SwipesPage from "./pages/SwipePage"
 import SideMenu from "./components/Menu"
+import ProfilePage from "./pages/ProfilePage"
 
 function App() {
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem('access_token'))
@@ -24,13 +25,19 @@ function App() {
                 </ProtectedRoute>
               } />
 
+              <Route path='/profile' element={
+                <ProtectedRoute>
+                  <ProfilePage/>
+                </ProtectedRoute>
+              }/>
+
               <Route path='/swipes' element={
                 <ProtectedRoute requirePreferences>
                   <SwipesPage />
                 </ProtectedRoute>
               } />
 
-              <Route path='/' element={<Navigate to='/auth' />} />
+              <Route path='/' element={isAuth?<Navigate to='/swipe' />:<Navigate to='/auth' />} />
             </Routes>
           </div>
         </div>

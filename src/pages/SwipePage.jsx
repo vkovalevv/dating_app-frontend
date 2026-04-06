@@ -1,15 +1,22 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import api from '../api/axiosInstance';
 import UserCard from '../components/UserCard';
 
 export default function SwipePage(){
     const [user, setUser] = useState(null);
     const [timer, setTimer] = useState(null);
+    const [noUsers, setNoUsers] = useState(false);
+    let counter = useRef(0)
 
     const getUser = () => { 
         api.get('/stack/next')
         .then((res)=>{setUser(res.data)})
         .catch((err)=>{
+          counter.current = counter.current + 1
+          if(counter.current === 5){
+            clearInterval(timer)
+            setNoUsers(true)
+          }
           setUser(null)
           console.error(err)
         })
@@ -38,7 +45,8 @@ export default function SwipePage(){
 
     return(
         <div className="flex items-center justify-center min-h-screen gap-8">
-          {!user && <p>Loading users profiles...</p>}
+          {(!user && !noUsers)&& <p>Loading users profiles...</p>}
+          {noUsers && <p>Currently there is no users for your preferences</p>}
           {user && 
             <>          
               <UserCard user={user}/>

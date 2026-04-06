@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import RegistrationForm from '../components/RegistrationForm';
+import { useNavigate } from 'react-router-dom';
 
 function AuthPage({onLogin}) {
   // status choose which form we will be showing  
   const [isLogin, setIsLogin] = useState(true);
-
+  const navigate = useNavigate()
   const handleLoginSuccess = () => {
     // After success login
     console.log('Sussesfull login!');
@@ -13,7 +14,7 @@ function AuthPage({onLogin}) {
 
   return (
     <div className="flex flex-col w-screen h-screen items-center justify-center gap-4">
-
+      
       {isLogin
         ? <LoginForm onSuccess={onLogin} />
         : <RegistrationForm onSuccess={()=>{setIsLogin(true)}}/>
