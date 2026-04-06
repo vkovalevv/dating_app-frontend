@@ -4,7 +4,7 @@ import api from "../api/axiosInstance";
 
 function ProtectedRoute({ children, requirePreferences = false }) {
     const isAuth = !!localStorage.getItem('access_token')
-    const [hasPreferences, setHasPreferences] = useState(!requirePreferences)
+    const [hasPreferences, setHasPreferences] = useState(requirePreferences?null:true)
 
 
     useEffect(() => {

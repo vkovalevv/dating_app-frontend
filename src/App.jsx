@@ -17,7 +17,7 @@ function App() {
           <div className="flex-1">
             <Routes>
               <Route path='/auth'
-                element={<AuthPage onLogin={()=>setIsAuth(true)}/>} />
+                element={isAuth?<Navigate to='/swipes' />:<AuthPage/>} />
 
               <Route path='/preferences' element={
                 <ProtectedRoute>
@@ -37,7 +37,7 @@ function App() {
                 </ProtectedRoute>
               } />
 
-              <Route path='/' element={isAuth?<Navigate to='/swipe' />:<Navigate to='/auth' />} />
+              <Route path='/' element={isAuth?<Navigate to='/swipes' />:<Navigate to='/auth' />} />
             </Routes>
           </div>
         </div>
