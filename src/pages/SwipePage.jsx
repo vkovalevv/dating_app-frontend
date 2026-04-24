@@ -6,14 +6,14 @@ export default function SwipePage(){
     const [user, setUser] = useState(null);
     const [timer, setTimer] = useState(null);
     const [noUsers, setNoUsers] = useState(false);
-    let counter = useRef(0)
+    const interval = useRef(null)
 
     const getUser = () => { 
         api.get('/stack/next')
         .then((res)=>{setUser(res.data)})
         .catch((err)=>{
           counter.current = counter.current + 1
-          if(counter.current === 5){
+          if(counter.current === 3){
             clearInterval(timer)
             setNoUsers(true)
           }

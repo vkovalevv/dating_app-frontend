@@ -19,7 +19,7 @@ export default function PreferencesForm() {
             })
             .catch(() => setHasPreferences(false))
     }, [])
-
+    
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
@@ -30,7 +30,7 @@ export default function PreferencesForm() {
                 setHasPreferences(true)
             }
             console.log('navigating to swipes')
-            navigate('/swipes')
+            window.location.href = '/swipes'
         } catch (error) {
             console.error(error)
         }

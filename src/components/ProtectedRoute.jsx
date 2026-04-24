@@ -23,6 +23,7 @@ function ProtectedRoute({ children, requirePreferences = false }) {
     if (hasPreferences === null) return <div>Updating</div>
     if (!hasPreferences && requirePreferences) return < Navigate to = '/preferences' />
 
+    console.log('navigate to children')
     return children
 };
 

@@ -6,18 +6,18 @@ import PreferencesPage from "./pages/PreferencesPage"
 import SwipesPage from "./pages/SwipePage"
 import SideMenu from "./components/Menu"
 import ProfilePage from "./pages/ProfilePage"
-
+import LocationPage from "./pages/LocationPage"
 function App() {
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem('access_token'))
   return (
     <>
       <BrowserRouter>
         <div className='flex'>
-          {isAuth && <SideMenu/>}
+          {isAuth && <SideMenu />}
           <div className="flex-1">
             <Routes>
               <Route path='/auth'
-                element={isAuth?<Navigate to='/swipes' />:<AuthPage/>} />
+                element={isAuth ? <Navigate to='/swipes' /> : <AuthPage onLogin={() => { setIsAuth(true) }} />} />
 
               <Route path='/preferences' element={
                 <ProtectedRoute>
@@ -27,17 +27,20 @@ function App() {
 
               <Route path='/profile' element={
                 <ProtectedRoute>
-                  <ProfilePage/>
+                  <ProfilePage />
                 </ProtectedRoute>
-              }/>
+              } />
 
               <Route path='/swipes' element={
                 <ProtectedRoute requirePreferences>
                   <SwipesPage />
                 </ProtectedRoute>
               } />
-
-              <Route path='/' element={isAuth?<Navigate to='/swipes' />:<Navigate to='/auth' />} />
+              <Route path='/location' element={
+                <ProtectedRoute>
+                <LocationPage />
+              </ProtectedRoute>} />
+              <Route path='/' element={isAuth ? <Navigate to='/swipes' /> : <Navigate to='/auth' />} />
             </Routes>
           </div>
         </div>

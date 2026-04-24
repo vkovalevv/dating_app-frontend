@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axiosInstance";
+import { useId } from "react";
+import Upload from "./Upload";
 
 function ProfileForm() {
   const [user, setUser] = useState(null);
@@ -26,6 +28,7 @@ function ProfileForm() {
           onSubmit={handleSubmit}
         >
           <p>{user.email}</p>
+          <Upload/>
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium" htmlFor="user.first_name">First name:</label>
             <input className="border rounded px-3 py-2 w-full" type="text" id="user.first_name" value={user.first_name} onChange={e => setUser({ ...user, first_name: e.target.value })} required />
@@ -51,6 +54,7 @@ function ProfileForm() {
           </button>
         </form>
       }
+      
     </div>
   )
 }
