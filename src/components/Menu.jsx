@@ -1,32 +1,38 @@
-import React from 'react';
-import { AppstoreOutlined, MailOutlined, SettingOutlined, UserOutlined, HomeOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { SettingOutlined, UserOutlined, AppstoreOutlined, MailOutlined, HomeOutlined } from '@ant-design/icons';
+
 const items = [
-  { key: '1', label: 'Preferences', icon: <SettingOutlined /> },
-  { key: '2', label: 'Profile', icon: <UserOutlined /> },
-  { key: '3', label: 'Images', icon: <AppstoreOutlined /> },
-  { key: '4', label: 'Chats', icon: <MailOutlined /> },
-  { key: '5', label: 'Swipes', icon: <HomeOutlined/>}
+  { key: '/swipes', label: 'Swipes', icon: <HomeOutlined /> },
+  { key: '/preferences', label: 'Preferences', icon: <SettingOutlined /> },
+  { key: '/profile', label: 'Profile', icon: <UserOutlined /> },
+  { key: '/images', label: 'Images', icon: <AppstoreOutlined /> },
+  { key: '/chats', label: 'Chats', icon: <MailOutlined /> },
 ]
+
 const SideMenu = () => {
-  const navigate = useNavigate();
-  const onClick = e => {
-    if(e.key === '1') navigate('/preferences');
-    if(e.key === '2') navigate('/profile');
-    //if(e.key === '3') navigate('/images');
-    //if(e.key === '4') navigate('/chats');
-    if(e.key === '5') navigate('/swipes');
-  };
+  const navigate = useNavigate()
+  const location = useLocation()
+
   return (
-    <Menu
-      onClick={onClick}
-      style={{ width: 256 }}
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
-      mode="inline"
-      items={items}
-    />
-  );
-};
+    <div className="w-56 min-h-screen border-r border-gray-200 pt-8 px-3">
+      <nav className="flex flex-col gap-1">
+        {items.map(item => (
+          <button
+            key={item.key}
+            onClick={() => navigate(item.key)}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors w-full text-left
+              ${location.pathname === item.key
+                ? 'bg-gray-300 text-gray-700 font-medium'
+                : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+              }`}
+          >
+            {item.icon}
+            {item.label}
+          </button>
+        ))}
+      </nav>
+    </div>
+  )
+}
+
 export default SideMenu;

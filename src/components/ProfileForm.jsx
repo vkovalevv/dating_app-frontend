@@ -19,16 +19,27 @@ function ProfileForm() {
       .then((res) => { console.log(res) })
       .catch((err) => { console.error(err) })
   }
-
+  const hadnleUpload = async (file) => {
+    const formData = new FormData()
+    formData.append('images', file)
+    try {
+      await api.post('/users/images', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      console.log('uploaded!')
+    } catch (error) {
+      console.error('error:', error)
+    }
+  }
   return (
-    <div className='flex w-screen h-screen items-center justify-center'>
+    <div className='flex w-full h-screen items-center justify-center'>
       {user &&
         <form
           className="flex flex-col gap-4 w-full max-w-md mx-auto bg-gray-300 rounded-xl shadow-sm p-6"
           onSubmit={handleSubmit}
         >
           <p>{user.email}</p>
-          <Upload/>
+          <Upload onUpload={hadnleUpload} />
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium" htmlFor="user.first_name">First name:</label>
             <input className="border rounded px-3 py-2 w-full" type="text" id="user.first_name" value={user.first_name} onChange={e => setUser({ ...user, first_name: e.target.value })} required />
@@ -54,7 +65,7 @@ function ProfileForm() {
           </button>
         </form>
       }
-      
+
     </div>
   )
 }

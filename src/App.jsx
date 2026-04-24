@@ -12,9 +12,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className='flex'>
+        <div className='flex min-h-screen'>
           {isAuth && <SideMenu />}
-          <div className="flex-1">
+          <div className="flex-1 flex justify-center">
             <Routes>
               <Route path='/auth'
                 element={isAuth ? <Navigate to='/swipes' /> : <AuthPage onLogin={() => { setIsAuth(true) }} />} />

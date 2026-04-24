@@ -37,7 +37,7 @@ export default function PreferencesForm() {
     }
 
     return (
-        <div className='flex w-screen h-screen items-center justify-center'>
+        <div className='flex w-full h-screen items-center justify-center'>
             <form
                 className="flex flex-col gap-4 w-full max-w-md mx-auto bg-gray-300 rounded-xl shadow-sm p-6"
                 onSubmit={handleSubmit}

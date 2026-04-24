@@ -4,6 +4,7 @@ const Upload = ({ onUpload }) => {
   const id = useId()
   const [file, setFile] = useState(null)
   const [fileName, setFileName] = useState(null)
+  console.log('file:', file)
   return (
     <div className="flex items-center gap-3 w-fit">
       <label htmlFor={id} className="flex items-center gap-3 cursor-pointer w-fit">
@@ -15,9 +16,15 @@ const Upload = ({ onUpload }) => {
         </span>
       </label>
       <button
-        onClick={() => file && onUpload(file)}
-        disabled={!file}
-        className="px-4 py-2 rounded-xl bg-blue-400 text-white text-sm disabled:opacity-40"
+        type="button"
+        onClick={() => {
+          console.log('button clicked, file:', file)
+          file && onUpload(file)
+        }}
+        className={`px-4 py-2 rounded-xl text-white text-sm transition-colors ${file
+            ? 'bg-blue-400 hover:bg-blue-500 cursor-pointer'
+            : 'bg-gray-300 cursor-not-allowed opacity-40'
+          }`}
       >
         Upload
       </button>
