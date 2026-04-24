@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'antd';
 import api from '../api/axiosInstance';
 
-function RegistrationForm({onSuccess}) {
+function RegistrationForm({ onSuccess }) {
   const [email, setEmail] = useState('');
   const [firstName, setFirstname] = useState('');
   const [secondName, setSecondname] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState(18);
   const [gender, setGender] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -28,15 +29,19 @@ function RegistrationForm({onSuccess}) {
       onSuccess()
     } catch (error) {
       console.error(error);
+      setErrorMessage(error.response.data.detail)
     }
   };
 
   return (
+
     <div className='flex w-screen h-screen items-center justify-center'>
+      
       <form
         className="flex flex-col gap-4 w-full max-w-md mx-auto bg-gray-300 rounded-xl shadow-sm p-6"
         onSubmit={handleSubmit}
       >
+        {errorMessage && <p className='flex flex-col gap-1 text-red-800'>{errorMessage}</p>}
         <Form.Item className="flex flex-col gap-1">
           <label className="text-sm font-medium" htmlFor="email">Email:</label>
           <input className="border rounded px-3 py-2 w-full" type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required />
