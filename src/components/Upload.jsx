@@ -1,10 +1,9 @@
 import { useId, useState } from "react"
 
-const Upload = ({ onUpload }) => {
+const Upload = ({ onUpload, isUploading }) => {
   const id = useId()
   const [file, setFile] = useState(null)
   const [fileName, setFileName] = useState(null)
-  console.log('file:', file)
   return (
     <div className="flex items-center gap-3 w-fit">
       <label htmlFor={id} className="flex items-center gap-3 cursor-pointer w-fit">
@@ -17,6 +16,7 @@ const Upload = ({ onUpload }) => {
       </label>
       <button
         type="button"
+        disabled={isUploading}
         onClick={() => {
           console.log('button clicked, file:', file)
           file && onUpload(file)
@@ -36,7 +36,6 @@ const Upload = ({ onUpload }) => {
         onChange={(e) => {
           const f = e.target.files[0] ?? null
           setFile(f)
-          console.log('file:', f)
           setFileName(f?.name ?? null)
         }}
       />
