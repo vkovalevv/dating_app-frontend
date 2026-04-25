@@ -7,22 +7,26 @@ export default function SwipePage() {
   const [noUsers, setNoUsers] = useState(false);
   const intervalRef = useRef(null)
   const counter = useRef(0)
-  
-  const getUser = () => {
+
+const getUser = () => {
     api.get('/stack/next')
-      .then((res) => { setUser(res.data) 
-        counter.current = 0
-      })
-      .catch((err) => {
-        counter.current = counter.current + 1
-        if (counter.current === 3) {
-          clearInterval(intervalRef.current)
-          setNoUsers(true)
-        }
-        setUser(null)
-        console.error(err)
-      })
-  };
+        .then((res) => {
+            setUser(res.data)
+            counter.current = 0
+        })
+        .catch((err) => {
+            if (!intervalRef.current) {
+                intervalRef.current = setInterval(getUser, 3000)
+            }
+            counter.current += 1
+            if (counter.current === 3) {
+                clearInterval(intervalRef.current)
+                intervalRef.current = null
+                setNoUsers(true)
+            }
+            setUser(null)
+        })
+}
 
   useEffect(() => {
     intervalRef.current = setInterval(getUser, 3000)
@@ -33,6 +37,7 @@ export default function SwipePage() {
     () => {
       if (user) {
         clearInterval(intervalRef.current)
+        intervalRef.current = null
       }
     }, [user]
   )
@@ -40,7 +45,9 @@ export default function SwipePage() {
   const handleSwipe = (swipe) => {
     api.post('/stack/swipe', { target_user: user.id, action: swipe })
       .then(getUser)
-      .catch(() => setUser(null))
+      .catch(() => {
+        setUser(null)
+      })
   }
 
 

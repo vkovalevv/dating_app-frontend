@@ -1,11 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { SettingOutlined, UserOutlined, AppstoreOutlined, MailOutlined, HomeOutlined } from '@ant-design/icons';
+import { SettingOutlined, UserOutlined, MailOutlined, HomeOutlined } from '@ant-design/icons';
 
 const items = [
   { key: '/swipes', label: 'Swipes', icon: <HomeOutlined /> },
   { key: '/preferences', label: 'Preferences', icon: <SettingOutlined /> },
   { key: '/profile', label: 'Profile', icon: <UserOutlined /> },
-  { key: '/images', label: 'Images', icon: <AppstoreOutlined /> },
   { key: '/chats', label: 'Chats', icon: <MailOutlined /> },
 ]
 
