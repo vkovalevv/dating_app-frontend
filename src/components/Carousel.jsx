@@ -10,7 +10,7 @@ function Carousel({ imagesList }) {
         if (side === 'right') setCurrentImage((currentImage + 1) % imagesList.length)
     }
     if (!imagesList || imagesList.length === 0) {
-        return <div className="w-128 h-full bg-gray-200 rounded-xl flex items-center justify-center">
+        return <div className="w-128 bg-gray-200 rounded-xl flex items-center justify-center">
             <p className="text-gray-400 text-sm">No photos yet</p>
         </div>
     }

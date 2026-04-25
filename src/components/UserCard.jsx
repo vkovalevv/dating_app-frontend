@@ -9,7 +9,8 @@ export default function UserCard({ user }) {
   return (
     <div className="w-80 rounded-2xl overflow-hidden shadow-xl bg-white">
       <div className='relative'>
-      <img src={user.images[imageIndex]} alt={user.name} className="w-full h-96 object-cover" />
+      
+      {user.images &&<img src={user.images[imageIndex].image} alt={user.name} className="w-full h-96 object-cover" />}
       <button onClick={prev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-8 h-8">‹</button>
       <button onClick={next} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-8 h-8">›</button>
       </div>
